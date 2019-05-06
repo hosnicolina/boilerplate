@@ -70,7 +70,7 @@ gulp.task("dev-styles", () => {
     .pipe(sass(sassDevConf))
     .pipe(postcss(postcssPlugins))
     .pipe(sourcemaps.write("."))
-    .pipe(gulp.dest("./public/css"))
+    .pipe(gulp.dest("./public/assets/css"))
     .pipe(server.stream({ match: "**/*.css" }));
 });
 
@@ -109,12 +109,12 @@ gulp.task("scripts-dev", () => {
     )
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(sourcemaps.write("."))
-    .pipe(gulp.dest("./public/js"))
+    .pipe(gulp.dest("./public/assets/js"))
     .pipe(server.stream({ match: "**/*.js" }));
 });
 
 gulp.task("media", () => {
-  return gulp.src("./src/img/**/**").pipe(gulp.dest("./public/img"));
+  return gulp.src("./src/img/**/**").pipe(gulp.dest("./public/assets/img"));
 });
 
 gulp.task(
