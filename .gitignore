@@ -1,4 +1,5 @@
 node_modules
+public
 *.jpeg
 package-lock.json
 .vscode

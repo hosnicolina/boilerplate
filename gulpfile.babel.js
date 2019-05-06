@@ -35,7 +35,6 @@ const postcssPlugins = [
 const sassDevConf = {
   importer: tildeImporter,
   outputStyle: "expanded",
-  includePaths: ["./node_modules"]
 };
 
 // Server BroserSyc
@@ -64,7 +63,7 @@ function watchFiles() {
 
 gulp.task("dev-styles", () => {
   return gulp
-    .src("./src/scss/styles.scss")
+    .src(['node_modules/bootstrap/scss/bootstrap.scss',"./src/scss/styles.scss"])
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(plumber())
     .pipe(sass(sassDevConf))
@@ -113,11 +112,17 @@ gulp.task("scripts-dev", () => {
     .pipe(server.stream({ match: "**/*.js" }));
 });
 
+gulp.task('js', function() {
+  return gulp.src(['./node_modules/bootstrap/dist/js/bootstrap.min.js', './src/js/popper.min.js', './src/js/jquery.min.js'])
+      .pipe(gulp.dest("./public/assets/js"))
+      .pipe(browserSync.stream({ match: "**/*.js" }));
+});
+
 gulp.task("media", () => {
   return gulp.src("./src/img/**/**").pipe(gulp.dest("./public/assets/img"));
 });
 
 gulp.task(
   "dev",
-  gulp.series("dev-styles", "dev-pug", "scripts-dev", serverInit, watchFiles)
+  gulp.series("dev-styles", "dev-pug", "scripts-dev","js", serverInit, watchFiles)
 );
